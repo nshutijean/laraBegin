@@ -1,0 +1,1 @@
+Vform: easy VueJs and Laravel validation form package

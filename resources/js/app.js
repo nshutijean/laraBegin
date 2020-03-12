@@ -9,19 +9,36 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+import { Form, HasError, AlertError } from 'vform'
+import VueRouter from 'vue-router';
+import Dashboard from './components/Dashboard.vue';
+import Profile from './components/Profile.vue';
+import Users from './components/Users.vue';
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+//Form is made global
+window.Form = Form;
 
+Vue.use(VueRouter)
+
+
+//Routes
+let routes = [
+    { path: '/dashboard', component: Dashboard },
+    { path: '/profile', component: Profile },
+    { path: '/users', component: Users }
+
+]
+
+//Registering routes
+const router = new VueRouter({
+    mode: 'history',
+    routes // short for `routes: routes`
+})
+
+//Globally declared
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -29,5 +46,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    router,
+    components:{ Dashboard, Profile } 
 });
