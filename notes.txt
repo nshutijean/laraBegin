@@ -1,1 +1,7 @@
 Vform: easy VueJs and Laravel validation form package
+
+api routes(in Laravel): add the middleware to requests made
+
+creating an API controller: php artisan make:controller API/UserController --api 
+
+momentJs: date formatting
