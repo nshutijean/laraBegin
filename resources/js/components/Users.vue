@@ -22,15 +22,19 @@
                       <th>Name</th>
                       <th>Email</th>
                       <th>Type</th>
+                      <th>Registered Date</th>
                       <th>Modify</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
+                      <!-- Users table -->
+                      <!-- using a pipe to append filter to text -->
+                    <tr v-for="user in users" :key="user.id">
+                      <td>{{user.id}}</td>
+                      <td>{{user.name | capitalize}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.type | upText}}</td>
+                      <td>{{user.created_at | dateFormat}}</td>
                       <td>
                           <!-- Edit button(icon) -->
                           <a href="#">
@@ -61,8 +65,9 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                 <!--User Form via a modal -->
+                <form @submit.prevent="createUser()" method="post">
                 <div class="modal-body">
-                    <!--User Form via a modal -->
                     <!-- Name -->
                     <div class="form-group">
                         <input v-model="form.name" type="text" name="name"
@@ -97,7 +102,7 @@
                     </div>
                     <!-- Password -->
                     <div class="form-group">
-                        <input v-model="form.bio" type="password" name="password" id="password"
+                        <input v-model="form.password" type="password" name="password" id="password"
                         placeholder="Password"
                         class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
                         <has-error :form="form" field="password"></has-error>
@@ -105,8 +110,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </div>
+                </form>
                 </div>
             </div>
         </div>
@@ -117,6 +123,7 @@
     export default {
         data() {
             return {
+                users: {},
                 form: new Form({
                     name: '',
                     email: '',
@@ -128,8 +135,18 @@
                 })
             }
         },
-        mounted() {
-            console.log('Component mounted.')
+        methods: {
+            createUser() {
+                this.form.post('api/user');
+            },
+            loadUsers() {
+                axios.get('api/user',
+                ).then(({data}) => (this.users = data.data));
+            }
+        },
+        //launched when the app is up
+        created() {
+            this.loadUsers();
         }
     }
 </script>
