@@ -25,5 +25,6 @@ Route::apiResource('user','API\UserController');
 //Profile route(because it's not originally created while creating a controller, so it has to be manually added)
 Route::get('profile', 'API\UserController@profile');
 Route::put('profile', 'API\UserController@updateProfile');
+Route::get('findUser', 'API\UserController@search');
 
 
