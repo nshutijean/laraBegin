@@ -268,6 +268,15 @@
         },
         //launched when the app is up
         created() {
+            Fire.$on('searching', () => {
+                let query = this.$parent.search;
+                axios.get('api/findUser?q=' + query)
+                .then((res) => {
+                    this.users = res.data;
+                }).catch(() => {
+                    
+                });
+            });
             this.loadUsers();
             //load users each 3 seconds
             // setInterval(() => {this.loadUsers()}, 3000);
