@@ -8,8 +8,8 @@
             class="widget-user-header text-white"
             style="background: url('./img/upfruits.jpg') center center;"
           >
-            <h3 class="widget-user-username text-right">Elizabeth Pierce</h3>
-            <h5 class="widget-user-desc text-right">Web Designer</h5>
+            <h3 class="widget-user-username text-right">{{this.form.name}}</h3>
+            <h5 class="widget-user-desc text-right">{{this.form.type}}</h5>
           </div>
           <div class="widget-user-image">
             <!-- profile picture -->
@@ -144,6 +144,7 @@ export default {
                 email: '',
                 bio: '',
                 photo: '',
+                type: '',
                 password: '',
 
             })
@@ -217,6 +218,6 @@ export default {
     .widget-user-header {
         background-position: center center;
         background-size: cover;
-        height: 250px;
+        height: 200px;
     }
 </style>
