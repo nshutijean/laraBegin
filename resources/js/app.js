@@ -33,11 +33,7 @@ import Dashboard from './components/Dashboard.vue';
 import Profile from './components/Profile.vue';
 import Users from './components/Users.vue';
 import Dev from './components/Dev.vue';
-
-//Passport imports
-// import AuthorizedClients from './components/passport/AuthorizedClients.vue';
-// import Clients from './components/passport/Clients.vue';
-// import PersonalAccessTokens from './components/passport/PersonalAccessTokens.vue'
+// import NotFound from './components/NotFound.vue'
 
 
 //MomentJs 
@@ -48,6 +44,7 @@ import VueProgressBar from 'vue-progressbar'
 import Swal from 'sweetalert2'
 //animate.css(not working, yet)
 import animate from 'animate.css'
+
 
 import Gate from './Gate'
 
@@ -87,13 +84,16 @@ Vue.use(VueProgressBar, {
     failedColor: 'red',
     height: '3px'
 })
+//not-found
+// Vue.component('not-found',require('./components/NotFound.vue').default);
 
 //Routes
 let routes = [
     { path: '/dashboard', component: Dashboard },
     { path: '/profile', component: Profile },
     { path: '/users', component: Users },
-    { path: '/dev', component: Dev }
+    { path: '/dev', component: Dev },
+    { path: '*', component: require('./components/NotFound.vue').default }
 
 ]
 
@@ -108,8 +108,8 @@ const router = new VueRouter({
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
-
 Vue.component('not-found',require('./components/NotFound.vue').default);
+
 
 //laravel-vue-pagination
 Vue.component('pagination', require('laravel-vue-pagination'));
@@ -142,5 +142,13 @@ Vue.filter('dateFormat', function(newFormat){
 const app = new Vue({
     el: '#app',
     router,
-    components:{ Dashboard, Profile, Dev, Users} 
+    components:{ Dashboard, Profile, Dev, Users},
+    data:{
+        search: ''
+    },
+    methods: {
+        searchData: _.debounce(() => {
+            Fire.$emit('searching');
+        }, 750)
+    },
 });
