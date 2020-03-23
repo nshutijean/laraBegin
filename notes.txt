@@ -5,3 +5,53 @@ api routes(in Laravel): add the middleware to requests made
 creating an API controller: php artisan make:controller API/UserController --api 
 
 momentJs: date formatting
+
+sweetAlert js: launches alert(notifications)
+
+setTimeout and setInterval: used to set time after a certain request is made
+
+custom events in vuejs
+
+adding promise based api request with .then() and .catch()
+
+**shaking modal with animate.css(fail): shakeModal() {
+                var $modal = $('addNew'),
+                $btn = $('#create');
+
+                $modal.modal({
+                keyboard: false,
+                backdrop: 'static',
+                show: false
+                })
+
+                // $btn.on('click', function() {
+                // $modal.modal('show');
+                // })
+
+                $modal.on('shown.bs.modal', function () {
+                $(this).on('click', function(e) {
+                    if(e.target.id === 'modal-demo') {
+                    var $dialog = $(this).find('.modal-dialog');
+                    $dialog.addClass('shake');
+                    $dialog.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function() {
+                        $dialog.removeClass('shake');
+                    });      
+                    }
+                })
+                })
+
+                $modal.on('hidden.bs.modal', function () {
+                $(this).off('click');
+                })
+            }
+
+
+Add a ".default" after Vue components registered with require() 
+
+Consuming api with JS(Passport page)
+
+composer: intervention image package
+
+ACL(authorization&security): access level(role-based permissions system): Bouncer(package)
+    -Gate
+    -policy

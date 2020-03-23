@@ -56,12 +56,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/img/user.png" class="img-circle elevation-2" alt="User Image">
+          <img src="/img/profile/{{Auth::user()->photo}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">
-            {{ Auth::user()->name }}
+            {{ Auth::user()->name }} <br>
+            Type: {{ Auth::user()->type }}
           </a>
+          {{-- <p></p> --}}
         </div>
       </div>
 
@@ -80,7 +82,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </p>
                 </router-link>
             </li>
-           
+           {{-- Management --}}
+           @can('isAdmin')
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs yellow"></i>
@@ -98,6 +101,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
+            @endcan
            {{-- Profile --}}
            <li class="nav-item">
                 <router-link to="/profile" class="nav-link">
@@ -107,6 +111,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </p>
                 </router-link>
             </li>
+            {{-- Development --}}
+            @can('isAdmin')
+           <li class="nav-item">
+              <router-link to="/dev" class="nav-link">
+                  <i class="nav-icon fab fa-dev yellow"></i>
+                  <p>
+                      Developer
+                  </p>
+              </router-link>
+          </li>
+          @endcan
             {{-- Logout --}}
            <li class="nav-item">
             {{-- <a href="#" class="nav-link">
@@ -140,7 +155,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
+        {{-- set routes here --}}
         <router-view></router-view>
+        {{-- set progressbar here --}}
+        <vue-progress-bar></vue-progress-bar>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
@@ -168,6 +186,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </footer>
 </div>
 <!-- ./wrapper -->
+
+{{-- assigning authorized users from laravel to window.user(which will be used in Vue) --}}
+@auth
+<script>
+  window.user = @json(auth()->user());
+</script>
+    
+@endauth
 
 <script src="/js/app.js"></script>
 </body>
