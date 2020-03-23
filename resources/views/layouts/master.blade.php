@@ -16,6 +16,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
 </head>
 <body class="hold-transition sidebar-mini">
+  <style>
+    #search{
+      padding-right: 70%;
+    }
+  </style>
 <div class="wrapper" id="app">
 
   <!-- Navbar -->
@@ -26,17 +31,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </li>
       </ul>
     
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+    <!-- search input -->
+      <div id="search" class="input-group input-group-sm">
+        <input class="form-control form-control-navbar" @keyup="searchData" v-model="search" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
+          <button class="btn btn-navbar" @click="searchData">
             <i class="fas fa-search"></i>
           </button>
         </div>
       </div>
-    </form>
 
     
   </nav>
@@ -61,7 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="info">
           <a href="#" class="d-block">
             {{ Auth::user()->name }} <br>
-            Type: {{ Auth::user()->type }}
+            Type: <i>{{ Auth::user()->type }}</i>
           </a>
           {{-- <p></p> --}}
         </div>
